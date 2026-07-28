@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Result Analyzer - JS Array Search Methods</title>
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Ambient Floating Background Blobs -->
+  <div class="bg-animation-container">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+  </div>
+
+  <div class="container">
+    <!-- Header Section -->
+    <header class="header">
+      <div class="badge">School Result Management System</div>
+      <h1>School Result Analyzer</h1>
+      <p class="subtitle">Analyze student marks & exam performance using JavaScript <code>Array Search Methods</code></p>
+    </header>
+
+    <!-- Main Grid Layout -->
+    <div class="main-grid">
+      
+      <!-- Left Panel: Data Roster & Preset Expected Outputs -->
+      <aside class="panel roster-panel">
+        <div class="panel-header">
+          <h2>Student Roster & Marks</h2>
+          <button id="btn-reset" class="btn btn-secondary btn-sm" title="Reset dataset to default example">Reset Dataset</button>
+        </div>
+
+        <p class="panel-description">Current class dataset storing student names and marks in parallel arrays:</p>
+
+        <!-- Roster Table / Visual Cards -->
+        <div class="roster-list" id="roster-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <!-- Add Student Form -->
+        <div class="add-student-card">
+          <h3>Add Student Record</h3>
+          <form id="add-student-form" class="form-row">
+            <input type="text" id="new-name" placeholder="Student Name" required>
+            <input type="number" id="new-mark" placeholder="Mark (0-100)" min="0" max="100" required>
+            <button type="submit" class="btn btn-primary btn-sm">+ Add</button>
+          </form>
+        </div>
+
+        <!-- Quick Run: Expected Outputs Summary -->
+        <div class="preset-card">
+          <div class="preset-header">
+            <h3>Problem Statement Audit</h3>
+            <button id="btn-run-all" class="btn btn-accent btn-sm">Run Expected Queries</button>
+          </div>
+          <p class="preset-subtext">Executes all 7 problem statement search requirements against the dataset:</p>
+
+          <ul class="expected-list" id="expected-results">
+            <li id="exp-1"><span class="exp-label">First Rahul index:</span> <span class="exp-val">--</span></li>
+            <li id="exp-2"><span class="exp-label">Last Rahul index:</span> <span class="exp-val">--</span></li>
+            <li id="exp-3"><span class="exp-label">Neha enrolled check:</span> <span class="exp-val">--</span></li>
+            <li id="exp-4"><span class="exp-label">First passing mark (&gt;40):</span> <span class="exp-val">--</span></li>
+            <li id="exp-5"><span class="exp-label">First passing student index:</span> <span class="exp-val">--</span></li>
+            <li id="exp-6"><span class="exp-label">Last mark above 50:</span> <span class="exp-val">--</span></li>
+            <li id="exp-7"><span class="exp-label">Last passing student index:</span> <span class="exp-val">--</span></li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Right Panel: Interactive Array Search Methods Explorer -->
+      <main class="panel explorer-panel">
+        <div class="panel-header">
+          <h2>Array Search Methods Interactive Explorer</h2>
+          <span class="method-count">7 Methods</span>
+        </div>
+
+        <div class="methods-grid">
+          
+          <!-- Method 1: indexOf() -->
+          <div class="method-card" id="card-indexOf">
+            <div class="method-header">
+              <span class="method-name">indexOf()</span>
+              <span class="method-desc">Finds first occurrence index of student name</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>students.indexOf("<span id="code-indexOf-name">Rahul</span>")</code>
+              </div>
+              <div class="control-row">
+                <input type="text" id="input-indexOf" value="Rahul" placeholder="Student name">
+                <button class="btn btn-primary btn-sm" id="btn-indexOf">Search</button>
+              </div>
+              <div class="result-box" id="res-indexOf">Result will appear here</div>
+            </div>
+          </div>
+
+          <!-- Method 2: lastIndexOf() -->
+          <div class="method-card" id="card-lastIndexOf">
+            <div class="method-header">
+              <span class="method-name">lastIndexOf()</span>
+              <span class="method-desc">Finds last occurrence index of student name</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>students.lastIndexOf("<span id="code-lastIndexOf-name">Rahul</span>")</code>
+              </div>
+              <div class="control-row">
+                <input type="text" id="input-lastIndexOf" value="Rahul" placeholder="Student name">
+                <button class="btn btn-primary btn-sm" id="btn-lastIndexOf">Search</button>
+              </div>
+              <div class="result-box" id="res-lastIndexOf">Result will appear here</div>
+            </div>
+          </div>
+
+          <!-- Method 3: includes() -->
+          <div class="method-card" id="card-includes">
+            <div class="method-header">
+              <span class="method-name">includes()</span>
+              <span class="method-desc">Checks if a student is enrolled (returns boolean)</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>students.includes("<span id="code-includes-name">Neha</span>")</code>
+              </div>
+              <div class="control-row">
+                <input type="text" id="input-includes" value="Neha" placeholder="Student name">
+                <button class="btn btn-primary btn-sm" id="btn-includes">Check</button>
+              </div>
+              <div class="result-box" id="res-includes">Result will appear here</div>
+            </div>
+          </div>
+
+          <!-- Method 4: find() -->
+          <div class="method-card" id="card-find">
+            <div class="method-header">
+              <span class="method-name">find()</span>
+              <span class="method-desc">Finds first element matching predicate (marks &gt; threshold)</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>marks.find(m =&gt; m &gt; <span id="code-find-thresh">40</span>)</code>
+              </div>
+              <div class="control-row">
+                <label for="input-find-thresh">Passing Mark &gt;</label>
+                <input type="number" id="input-find-thresh" value="40" min="0" max="100">
+                <button class="btn btn-primary btn-sm" id="btn-find">Find</button>
+              </div>
+              <div class="result-box" id="res-find">Result will appear here</div>
+            </div>
+          </div>
+
+          <!-- Method 5: findIndex() -->
+          <div class="method-card" id="card-findIndex">
+            <div class="method-header">
+              <span class="method-name">findIndex()</span>
+              <span class="method-desc">Gets index of first element matching predicate</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>marks.findIndex(m =&gt; m &gt; <span id="code-findIndex-thresh">40</span>)</code>
+              </div>
+              <div class="control-row">
+                <label for="input-findIndex-thresh">Passing Mark &gt;</label>
+                <input type="number" id="input-findIndex-thresh" value="40" min="0" max="100">
+                <button class="btn btn-primary btn-sm" id="btn-findIndex">Find Index</button>
+              </div>
+              <div class="result-box" id="res-findIndex">Result will appear here</div>
+            </div>
+          </div>
+
+          <!-- Method 6: findLast() -->
+          <div class="method-card" id="card-findLast">
+            <div class="method-header">
+              <span class="method-name">findLast()</span>
+              <span class="method-desc">Finds last element matching predicate (marks &gt; threshold)</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>marks.findLast(m =&gt; m &gt; <span id="code-findLast-thresh">50</span>)</code>
+              </div>
+              <div class="control-row">
+                <label for="input-findLast-thresh">Scored Above &gt;</label>
+                <input type="number" id="input-findLast-thresh" value="50" min="0" max="100">
+                <button class="btn btn-primary btn-sm" id="btn-findLast">Find Last</button>
+              </div>
+              <div class="result-box" id="res-findLast">Result will appear here</div>
+            </div>
+          </div>
+
+          <!-- Method 7: findLastIndex() -->
+          <div class="method-card" id="card-findLastIndex">
+            <div class="method-header">
+              <span class="method-name">findLastIndex()</span>
+              <span class="method-desc">Gets index of last element matching predicate</span>
+            </div>
+            <div class="method-body">
+              <div class="code-preview">
+                <code>marks.findLastIndex(m =&gt; m &gt; <span id="code-findLastIndex-thresh">40</span>)</code>
+              </div>
+              <div class="control-row">
+                <label for="input-findLastIndex-thresh">Passing Mark &gt;</label>
+                <input type="number" id="input-findLastIndex-thresh" value="40" min="0" max="100">
+                <button class="btn btn-primary btn-sm" id="btn-findLastIndex">Find Last Index</button>
+              </div>
+              <div class="result-box" id="res-findLastIndex">Result will appear here</div>
+            </div>
+          </div>
+
+        </div>
+      </main>
+
+    </div>
+
+    <!-- Console Output Log Component -->
+    <section class="console-section">
+      <div class="console-header">
+        <div class="console-title">
+          <span class="console-dot"></span>
+          <span>Execution Console Log</span>
+        </div>
+        <button id="btn-clear-console" class="btn btn-text btn-sm">Clear Console</button>
+      </div>
+      <div class="console-logs" id="console-logs">
+        <div class="log-entry log-info">[System Initialized] School Result Analyzer ready with array methods.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
