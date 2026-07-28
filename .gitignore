@@ -7,6 +7,9 @@
 ehthumbs.db
 Thumbs.db
 
+# Screenshots
+Screenshot*
+
 # Node dependencies
 node_modules/
 npm-debug.log*
