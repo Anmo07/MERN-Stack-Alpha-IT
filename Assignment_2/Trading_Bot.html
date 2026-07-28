@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Algo Trading Bot Simulation</title>
+  <meta name="description" content="A simple and elegant algorithmic trading bot simulator built in vanilla JavaScript.">
+  
+  <!-- Modern clean typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- External stylesheet link -->
+  <link rel="stylesheet" href="Trading_Bot.css">
+</head>
+<body>
+
+  <!-- Vanta Background Container -->
+  <div id="vanta-bg" style="position: fixed; z-index: -10; width: 100vw; height: 100vh; top: 0; left: 0;"></div>
+
+  <div class="container">
+    <header>
+      <h1>Algo Trading Bot Simulation</h1>
+    </header>
+
+    <!-- Metrics Dashboard -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <span class="metric-title">Balance</span>
+        <span class="metric-value" id="balance-val">$1000</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-title">Stock Price</span>
+        <span class="metric-value" id="stock-price-val">$100</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-title">Holdings</span>
+        <span class="metric-value" id="holdings-val">0 shares</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-title">Portfolio Value</span>
+        <span class="metric-value" id="portfolio-val">$1000</span>
+      </div>
+    </div>
+
+    <!-- Controls Panel -->
+    <div class="controls-panel">
+      <div class="btn-group">
+        <button id="run-btn" class="btn-primary" onclick="triggerSimulation()">Run 10 Rounds</button>
+        <button id="step-btn" class="btn-secondary" onclick="runSingleRound()">Run 1 Round</button>
+        <button id="reset-btn" class="btn-secondary" onclick="resetSimulation()">Reset</button>
+      </div>
+
+      <div class="asset-selector-group">
+        <label for="asset-select" class="asset-label">Asset</label>
+        <select id="asset-select" onchange="changeAsset(this.value)">
+          <option value="stock">Stock</option>
+          <option value="gold">Gold</option>
+          <option value="ethereum">Ethereum</option>
+          <option value="bitcoin">Bitcoin</option>
+        </select>
+      </div>
+
+      <span class="status-badge" id="status-badge">Round: 0 / 10</span>
+    </div>
+
+    <!-- Visualization and Log -->
+    <div class="visualization-row">
+      <!-- Left Panel: Line Chart -->
+      <div class="panel">
+        <div class="panel-title">
+          <span>Price Trend Chart</span>
+          <span id="chart-sub-title" style="font-size: 0.8rem; font-weight: normal; color: var(--text-secondary);">Rounds 0 - 10 (Stock)</span>
+        </div>
+        <div class="chart-container">
+          <canvas id="price-chart"></canvas>
+        </div>
+      </div>
+
+      <!-- Right Panel: Live Logs -->
+      <div class="panel">
+        <div class="panel-title">Simulation Log</div>
+        <div class="terminal" id="terminal-log">
+          <div class="log-line" style="border-color: var(--primary); color: var(--text-secondary);">
+            Bot initialized. Click "Run 10 Rounds" or "Run 1 Round" to start.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vanta Background Script dependencies -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+  <script>
+    VANTA.WAVES({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0x0b0b0e,
+      shininess: 30.00,
+      waveHeight: 10.00,
+      waveSpeed: 0.50,
+      zoom: 1.00
+    });
+  </script>
+
+  <!-- External script link -->
+  <script src="Trading_Bot.js" defer></script>
+</body>
+</html>

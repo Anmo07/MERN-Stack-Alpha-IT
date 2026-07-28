@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problem Statement: Online Bookstore Array Management</title>
+  <meta name="description" content="JavaScript online bookstore system implementing all 12 array methods step-by-step as per assignment requirements.">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Ambient Animated Background Layer -->
+  <div class="bg-animation-container">
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+    <div class="bg-blob blob-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header matching PDF title -->
+    <header class="app-header">
+      <div class="brand">
+        <h1>Problem Statement: Online Bookstore Array Management</h1>
+        <p class="subtitle">JavaScript Program implementing array methods step by step</p>
+      </div>
+      <div class="stats-bar">
+        <div class="stat-card">
+          <span class="stat-label">Total Books</span>
+          <span class="stat-value" id="stat-total-books">3</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Requirements</span>
+          <span class="stat-value">12 / 12</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Live Array State Banner -->
+    <section class="card live-array-card">
+      <div class="section-header-flex">
+        <h2>Current Book List (<code>books</code> Array)</h2>
+        <div class="action-buttons">
+          <button id="btn-reset" class="btn btn-outline">Reset to ['Math', 'Science', 'English']</button>
+          <button id="btn-run-all" class="btn">Re-run All 12 Operations</button>
+        </div>
+      </div>
+      <div id="bookshelf-display" class="bookshelf-display">
+        <!-- Rendered array elements -->
+      </div>
+      <div class="shelf-footer">
+        Current State: <code id="current-array-code">books = ['Math', 'Science', 'English'];</code>
+      </div>
+    </section>
+
+    <!-- Step-by-Step Requirements Walkthrough (Exact PDF Order & Wording) -->
+    <section class="card">
+      <div class="section-title">Requirements (1 – 12) Step-by-Step Execution</div>
+      <p class="section-desc">Each operation displays the updated list of books so that the effect of each array method is clearly visible.</p>
+
+      <div id="steps-container" class="steps-container">
+        <!-- 12 Cards rendered dynamically in exact PDF order (1 to 12) -->
+      </div>
+    </section>
+
+    <!-- Interactive Array Playground (Verbatim PDF Requirements) -->
+    <section class="card">
+      <div class="section-title">Interactive Array Operations Playground</div>
+      <p class="section-desc">Test each array method interactively on the live list of books.</p>
+
+      <div class="controls-grid">
+        <!-- Req 2 -->
+        <div class="control-card">
+          <label>2 Add new books using push() and unshift()</label>
+          <div class="input-row">
+            <input type="text" id="input-add-book" value="History" placeholder="Book Title">
+            <button class="btn btn-small" id="pg-push">push()</button>
+            <button class="btn btn-small btn-outline" id="pg-unshift">unshift()</button>
+          </div>
+        </div>
+
+        <!-- Req 3 -->
+        <div class="control-card">
+          <label>3 Remove books using pop() and shift()</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-pop">pop()</button>
+            <button class="btn btn-small btn-outline" id="pg-shift">shift()</button>
+          </div>
+        </div>
+
+        <!-- Req 4 -->
+        <div class="control-card">
+          <label>4 Delete a specific book using splice()</label>
+          <div class="input-row">
+            <input type="number" id="input-splice-idx" value="1" min="0" placeholder="Index" style="max-width: 65px;">
+            <input type="number" id="input-splice-count" value="1" min="1" placeholder="Count" style="max-width: 65px;">
+            <button class="btn btn-small" id="pg-splice">splice()</button>
+          </div>
+        </div>
+
+        <!-- Req 5 -->
+        <div class="control-card">
+          <label>5 Merge arrays of new arrivals using concat()</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-concat">concat(['Physics', 'Chemistry'])</button>
+          </div>
+        </div>
+
+        <!-- Req 6 -->
+        <div class="control-card">
+          <label>6 Copy a part of book list using copyWithin()</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-copywithin">copyWithin(0, 1, 2)</button>
+          </div>
+        </div>
+
+        <!-- Req 7 -->
+        <div class="control-card">
+          <label>7 Flatten nested array using flat()</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-flat">flat(2)</button>
+          </div>
+        </div>
+
+        <!-- Req 8 -->
+        <div class="control-card">
+          <label>8 Use slice() to create a small section</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-slice">slice(0, 2)</button>
+          </div>
+        </div>
+
+        <!-- Req 9 -->
+        <div class="control-card">
+          <label>9 Use toString() and join()</label>
+          <div class="input-row">
+            <input type="text" id="input-join-sep" value=" | " placeholder="Separator">
+            <button class="btn btn-small" id="pg-join">join()</button>
+            <button class="btn btn-small btn-outline" id="pg-tostring">toString()</button>
+          </div>
+        </div>
+
+        <!-- Req 10 -->
+        <div class="control-card">
+          <label>10 Find total number using length</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-length">length</button>
+          </div>
+        </div>
+
+        <!-- Req 11 -->
+        <div class="control-card">
+          <label>11 Replace/update book by index</label>
+          <div class="input-row">
+            <input type="number" id="input-update-idx" value="0" min="0" style="max-width: 60px;">
+            <input type="text" id="input-update-val" value="Advanced Math">
+            <button class="btn btn-small" id="pg-index-update">Update</button>
+          </div>
+        </div>
+
+        <!-- Req 12 -->
+        <div class="control-card">
+          <label>12 Use forEach() to display positions</label>
+          <div class="input-row">
+            <button class="btn btn-small btn-outline" id="pg-foreach">forEach()</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-box mt-3">
+        <span class="result-label">Playground Operation Result:</span>
+        <pre id="playground-output-content" class="result-value">Select an operation above to test.</pre>
+      </div>
+    </section>
+
+    <!-- Console Log -->
+    <section class="card">
+      <div class="section-title">Console Log Output</div>
+      <div id="output-log-box" class="output-log-box">
+        <!-- Log lines -->
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      Problem Statement: Online Bookstore Array Management &bull; Assignment 4
+    </footer>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>

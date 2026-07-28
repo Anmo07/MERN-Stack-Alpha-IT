@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assignment 1</title>
+    <link rel="icon" type="image/x-icon" href="https://example.com/favicon.ico">
+    <style>
+        .orange-text {
+            color: orange;
+        }
+        
+        .blue-border {
+            border: 2px solid blue;
+            height: 50px;
+            width: 200px;
+        }
+        
+        .bg-img-div {
+            background-image: url('https://picsum.photos/200/100');
+            height: 100px;
+            width: 200px;
+        }
+        
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        @keyframes colorChange {
+            from { background-color: white; }
+            to { background-color: yellow; }
+        }
+        .animated-box {
+            animation-name: colorChange;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            width: 100px;
+            height: 50px;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Assignment 1</h1>
+    
+    <h2>Basic Elements</h2>
+    
+    <p class="orange-text">This is a paragraph with orange text.</p>
+    
+    <p>Image:</p>
+    <img src="https://via.placeholder.com/150" alt="Random Image">
+    
+    <p>Link: <a href="https://example.com">Go to Example.com</a></p>
+    
+    <p>Table:</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        <tr>
+            <td>Alice</td>
+            <td>20</td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>22</td>
+        </tr>
+    </table>
+    
+    <p>I-frame:</p>
+    <iframe src="https://example.com" width="300" height="200"></iframe>
+    
+    <p>Div with blue border:</p>
+    <div class="blue-border">Border is blue</div>
+    
+    <p>Div with background image:</p>
+    <div class="bg-img-div"></div>
+    
+    <p>Two inline images: <img src="https://via.placeholder.com/50" alt="img1" style="vertical-align: middle;"> and <img src="https://via.placeholder.com/50" alt="img2" style="vertical-align: middle;"> inside the text.</p>
+    
+    <h2>Form Elements</h2>
+    <form>
+        <label for="username">Username:</label>
+        <input type="text" id="username"><br><br>
+        
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br><br>
+        
+        <input type="checkbox" id="agree" name="agree">
+        <label for="agree">I agree</label><br><br>
+        
+        <label for="bdate">Date:</label>
+        <input type="date" id="bdate"><br><br>
+        
+        <label for="btime">Time:</label>
+        <input type="time" id="btime"><br><br>
+        
+        <label for="cars">Cars:</label>
+        <select id="cars">
+            <option value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+        </select><br><br>
+        
+        <button type="button">Submit</button>
+    </form>
+
+    <h2>Bonus</h2>
+    <p>Keyframes animation:</p>
+    <div class="animated-box">Blinking Box</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="vanta-bg" style="position: fixed; z-index: -10; width: 100vw; height: 100vh; top: 0; left: 0;"></div>
+    <nav class="navbar">
+        <div class="logo">Portfolio<span>.</span></div>
+        <nav class="nav-links-container">
+            <div class="nav-hover-bg"></div>
+            <a href="#home" class="nav-item active" data-id="Home">Home</a>
+            <a href="#about" class="nav-item" data-id="About">About</a>
+            <a href="#projects" class="nav-item" data-id="Projects">Projects</a>
+            <a href="#contact" class="nav-item" data-id="Contact">Contact</a>
+        </nav>
+    </nav>
+
+    <header id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="animate-up delay-1">Hi, I'm <span class="gradient-text">Anmol Jangra</span></h1>
+            <p class="role animate-up delay-2">Software Engineer</p>
+            <p class="description animate-up delay-3">I architect high-performance systems, intelligent AI agents, and robust backend infrastructures.</p>
+            <div class="cta-buttons animate-up delay-4">
+                <a href="#projects" class="btn primary-btn">View My Work</a>
+                <a href="#contact" class="btn secondary-btn">Contact Me</a>
+            </div>
+        </div>
+        <div class="hero-image animate-float">
+            <img src="profile.jpg" alt="Anmol Jangra" class="profile-img">
+        </div>
+    </header>
+
+    <section id="about" class="about">
+        <div class="section-title">
+            <h2>About Me</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>I am a Software Engineer deeply passionate about architecting complex, high-performance systems. My work spans across multiple domains—from building offline, privacy-first AI desktop assistants and multi-agent verification engines, to engineering lightweight OS distributions and secure, multi-tenant command centers. I thrive on solving hard engineering problems, designing robust backend infrastructures, and integrating cutting-edge artificial intelligence into practical, scalable tools.</p>
+                <div class="skills">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">Docker & Containers</span>
+                    <span class="skill-tag">Linux / Fedora</span>
+                    <span class="skill-tag">Multi-Agent AI</span>
+                    <span class="skill-tag">Local LLMs</span>
+                    <span class="skill-tag">System Architecture</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="section-title">
+            <h2>Featured Projects</h2>
+            <div class="underline"></div>
+        </div>
+        <div class="project-grid">
+            <div class="project-card">
+                <div class="card-inner">
+                    <h3>ForgeFlow</h3>
+                    <p>Lightweight, high-performance command center built for IT Managed Service Providers.</p>
+                    <ul class="project-features">
+                        <li>Multi-tenant isolated client portals</li>
+                        <li>Contract-aware billing & CRM tools</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span>Python</span><span>Django</span><span>Multi-Tenant</span>
+                    </div>
+                    <a href="https://github.com/Anmo07/ForgeFlow" target="_blank" class="project-link">View GitHub Repo &rarr;</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="card-inner">
+                    <h3>Friday</h3>
+                    <p>AI-powered truth verification system using multi-agent intelligence for fake news detection.</p>
+                    <ul class="project-features">
+                        <li>Verifies news authenticity in real-time</li>
+                        <li>Orchestrates multiple LLM agents for consensus</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span>Python</span><span>Agentic AI</span><span>Local LLMs</span>
+                    </div>
+                    <a href="https://github.com/Anmo07/Friday" target="_blank" class="project-link">View GitHub Repo &rarr;</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="card-inner">
+                    <h3>The-Project (GhostCore)</h3>
+                    <p>A high-performance, private, and fully offline AI assistant designed for desktop use.</p>
+                    <ul class="project-features">
+                        <li>100% offline private execution</li>
+                        <li>Handles local file system context and tasks</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span>Python</span><span>Local LLMs</span><span>System Engineering</span>
+                    </div>
+                    <a href="https://github.com/Anmo07/The-Project" target="_blank" class="project-link">View GitHub Repo &rarr;</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="card-inner">
+                    <h3>VibeOS</h3>
+                    <p>A Fedora-based, macOS-inspired operating system with a modern automated build pipeline.</p>
+                    <ul class="project-features">
+                        <li>Immutable Fedora base with GNOME tweaks</li>
+                        <li>Fully containerized automated build system</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span>Fedora</span><span>Docker</span><span>Shell Scripting</span>
+                    </div>
+                    <a href="https://github.com/Anmo07/VibeOS" target="_blank" class="project-link">View GitHub Repo &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="contact-box">
+            <h2>Let's work together!</h2>
+            <p>I'm currently available for freelance work and open to new opportunities.</p>
+            <a href="mailto:anmolrajotiya@gmail.com" class="btn primary-btn pulse">Email Me</a>
+            <br><br>
+            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 1rem;">
+                <a href="https://www.linkedin.com/in/anmoljangra" target="_blank" class="btn secondary-btn">LinkedIn</a>
+                <a href="https://github.com/Anmo07" target="_blank" class="btn secondary-btn">GitHub</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Anmol Jangra. Crafted with &hearts; and CSS.</p>
+    </footer>
+
+    <script>
+        // Simple script to add 'scrolled' class to navbar and trigger animations on scroll
+        const navbar = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-title, .about-text, .project-card, .contact-box').forEach(el => {
+            el.classList.add('scroll-animate');
+            observer.observe(el);
+        });
+
+        // Animated Tabs Hover Logic
+        const navContainer = document.querySelector('.nav-links-container');
+        const hoverBg = document.querySelector('.nav-hover-bg');
+        const navItems = document.querySelectorAll('.nav-item');
+
+        if (navItems.length > 0 && hoverBg) {
+            let activeItem = document.querySelector('.nav-item.active') || navItems[0];
+            
+            // Set initial position immediately without transition
+            hoverBg.style.transition = 'none';
+            hoverBg.style.width = `${activeItem.offsetWidth}px`;
+            hoverBg.style.transform = `translateX(${activeItem.offsetLeft}px)`;
+            hoverBg.style.opacity = '1';
+            
+            // Re-enable transition after a brief timeout
+            setTimeout(() => {
+                hoverBg.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            }, 50);
+
+            const updateBg = (target) => {
+                hoverBg.style.width = `${target.offsetWidth}px`;
+                hoverBg.style.transform = `translateX(${target.offsetLeft}px)`;
+            };
+
+            navItems.forEach(item => {
+                item.addEventListener('mouseenter', (e) => {
+                    updateBg(e.target);
+                });
+                
+                item.addEventListener('click', (e) => {
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    e.target.classList.add('active');
+                    activeItem = e.target;
+                    updateBg(e.target);
+                });
+            });
+
+            navContainer.addEventListener('mouseleave', () => {
+                updateBg(activeItem); // Snap back to the active tab
+            });
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <script>
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x4a4a55, 
+            backgroundColor: 0x000000, 
+            points: 12.00,
+            maxDistance: 22.00,
+            spacing: 18.00,
+            showDots: true
+        });
+    </script>
+</body>
+</html>
