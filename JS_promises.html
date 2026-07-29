@@ -1,0 +1,28 @@
+<html>
+<head>
+  <title>JS Promises</title>
+</head>
+<body>
+  <h1>JS Promises</h1>
+  <script>
+    const myPromise = new Promise((resolve, reject) => {
+      let x = 1;
+      if (x === 1)
+{
+        resolve("Operation successful");
+    }
+    else{
+        reject("Operation failed");
+    }
+    });
+console.log(myPromise);
+    myPromise
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
