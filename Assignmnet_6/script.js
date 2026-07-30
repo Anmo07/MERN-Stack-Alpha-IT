@@ -57,9 +57,9 @@ async function processAllStudents(){
     const results = [];
     for (const key in Students) {
         console.log(`Processing student: ${Students[key].name}...`);
-        const statusEl = document.getElementById("status");
-        if (statusEl) {
-            statusEl.innerText = `Processing student: ${Students[key].name}...`;
+        const statusOfProcessingElement = document.getElementById("status");
+        if (statusOfProcessingElement) {
+            statusOfProcessingElement.innerText = `Processing student: ${Students[key].name}...`;
         }
         const result = await processStudent(Students[key]);
         results.push(result);
@@ -73,17 +73,17 @@ processAllStudents(Students)
             console.log(` ${student.name} has an average of ${student.average} (Status: ${student.status})`);
         }
 
-        const displayEl = document.getElementById("display");
-        if (displayEl) {
+        const displayElement = document.getElementById("display");
+        if (displayElement) {
             let html = "<h3 style='margin-top: 15px;'>Results Processed Successfully:</h3><ul class='student-list' style='list-style: none; padding: 0;'>";
             results.forEach(student => {
                 html += `<li class='student-item' style='margin: 6px 0;'> <strong>${student.name}</strong> has an average of <strong>${student.average}</strong> — Status: <strong>${student.status}</strong></li>`;
             });
             html += "</ul>";
 
-            const statusEl = document.getElementById("status");
-            if (statusEl) {
-                statusEl.outerHTML = html;
+            const statusOfProcessingElement = document.getElementById("status");
+            if (statusOfProcessingElement) {
+                statusOfProcessingElement.outerHTML = html;
             } else {
                 displayEl.innerHTML += html;
             }
@@ -91,8 +91,8 @@ processAllStudents(Students)
     })
     .catch(error => {
         console.error(error);
-        const displayEl = document.getElementById("display");
-        if (displayEl) {
-            displayEl.innerHTML = `<span class="error-message">Error processing records: ${error.message}</span>`;
+        const displayElement = document.getElementById("display");
+        if (displayElement) {
+            displayElement.innerHTML = `<span class="error-message">Error processing records: ${error.message}</span>`;
         }
     });
