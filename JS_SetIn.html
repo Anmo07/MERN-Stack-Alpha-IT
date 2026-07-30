@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Set In Function</title>
+</head>
+<body>
+    <h1>Set In Function</h1>
+    <p id="demo"></p>
+    <script>
+        const guests = new Set(["anmol","harsh","rohit", "anmol"]);
+        document.getElementById("demo").innerHTML = guests;
+        console.log(guests);
+        
+        let list = "";
+        for (const guest of guests){
+            list += "Guest : " + guest + "</br>";
+        }
+        document.getElementById("demo").innerHTML = list;
+    </script>
+</body>
+</html>
