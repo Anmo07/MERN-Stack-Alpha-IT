@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Iterables</title>
+</head>
+<body>
+  <h1>JS Iterables</h1>
+  <script>
+   const info =  {
+    name :"Anmol",
+    age : 21,
+    job : "Student"
+   }
+console.log(typeof info)
+let text = " ";
+   for(let key in info){
+   text += key + ":" +info[key]+"</br>"
+   }
+   document.getElementById("demo").innerHTML = text;
+   console.log(typeof text)
+     </script>
+</body>
+</html>

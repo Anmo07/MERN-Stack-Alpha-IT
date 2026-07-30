@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Iterables for...of</title>
+</head>
+<body>
+  <h1>JS Iterables for...of</h1>
+  <p id="demo"></p>
+  <script>
+    let word = "hello"
+    let output = ""
+    document.write(word)
+    for(let x of word){
+      output+= x
+    }
+    console.log(typeof(output))
+    const fruits = ["mango","apple","banana"]
+    for(let x of fruits){
+      console.log(x)
+    }
+    document.getElementById("demo").innerHTML=fruits
+    console.log(typeof(fruits))
+  </script>
+</body>
+</html>
