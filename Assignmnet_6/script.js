@@ -1,48 +1,38 @@
-
-
-const Students = 
-{
-     student1: { name: "Alice", marks: { math: 85, science: 90, english: 78
-} }, 
-     student2: { name: "Bob", marks: { math: 75, science: 80, english:88 } 
-    }, 
-    student3: { name: "Charlie" , marks: { math: 95, science: 89, english: 92} } 
-}
+const Students = {
+    student1: { name: "Alice", marks: { math: 85, science: 90, english: 78 } },
+    student2: { name: "Bob", marks: { math: 75, science: 80, english: 88 } },
+    student3: { name: "Charlie", marks: { math: 95, science: 89, english: 92 } }
+};
 
 console.log(" Initial Student Records ");
 for (const key in Students) {
-    const s = Students[key];
-    console.log(`Name: ${s.name}, Marks: Math(${s.marks.math}), Science(${s.marks.science}), English(${s.marks.english})`);
-}
-console.log("Processing Student Records Please wait ... ");
-const displayElement = document.getElementById("display");
-if (displayElement) {
-    let initialHtml = "<h3>Initial Student Data:</h3><ul class='student-list'>";
-    for (const key in Students) {
-        const s = Students[key];
-        initialHtml += `<li class='student-item'><strong>${s.name}</strong> — Math: ${s.marks.math}, Science: ${s.marks.science}, English: ${s.marks.english}</li>`;
-    }
-    initialHtml += "</ul><p id='status' style='margin-top: 15px; font-weight: bold;'>Processing Student Records, please wait...</p>";
-    displayElement.innerHTML = initialHtml;
+    const { name, marks } = Students[key];
+    console.log(`Name: ${name}, Marks: Math(${marks.math}), Science(${marks.science}), English(${marks.english})`);
 }
 
+console.log("Processing Student Records Please wait ... ");
+
+// Render initial student records to DOM
+const initialListElement = document.getElementById("initial-list");
+if (initialListElement) {
+    for (const student of Object.values(Students)) {
+        const { name, marks } = student;
+        const li = document.createElement("li");
+        li.className = "student-item";
+        li.innerHTML = `<strong>${name}</strong> — Math: ${marks.math}, Science: ${marks.science}, English: ${marks.english}`;
+        initialListElement.appendChild(li);
+    }
+}
 
 async function processStudent(Student) {
     return new Promise((resolve) => {
-        
         const delay = 2000;
 
         setTimeout(() => {
             const marksArray = Object.values(Student.marks);
             const total = marksArray.reduce((sum, mark) => sum + mark, 0);
             const average = (total / marksArray.length).toFixed(2);
-
-            let status;
-            if (average >= 80) {
-                status = "Pass";
-            } else {
-                status = "Fail";
-            }
+            const status = average >= 80 ? "Pass" : "Fail";
 
             resolve({
                 name: Student.name,
@@ -53,46 +43,53 @@ async function processStudent(Student) {
     });
 }
 
-async function processAllStudents(){
+async function processAllStudents() {
     const results = [];
+    const statusElement = document.getElementById("status");
+
     for (const key in Students) {
-        console.log(`Processing student: ${Students[key].name}...`);
-        const statusOfProcessingElement = document.getElementById("status");
-        if (statusOfProcessingElement) {
-            statusOfProcessingElement.innerText = `Processing student: ${Students[key].name}...`;
+        const student = Students[key];
+        console.log(`Processing student: ${student.name}...`);
+        if (statusElement) {
+            statusElement.textContent = `Processing student: ${student.name}...`;
         }
-        const result = await processStudent(Students[key]);
+        const result = await processStudent(student);
         results.push(result);
     }
     return results;
 }
 
-processAllStudents(Students)
+processAllStudents()
     .then(results => {
         for (const student of results) {
             console.log(` ${student.name} has an average of ${student.average} (Status: ${student.status})`);
         }
 
-        const displayElement = document.getElementById("display");
-        if (displayElement) {
-            let html = "<h3 style='margin-top: 15px;'>Results Processed Successfully:</h3><ul class='student-list' style='list-style: none; padding: 0;'>";
-            results.forEach(student => {
-                html += `<li class='student-item' style='margin: 6px 0;'> <strong>${student.name}</strong> has an average of <strong>${student.average}</strong> — Status: <strong>${student.status}</strong></li>`;
-            });
-            html += "</ul>";
+        const statusElement = document.getElementById("status");
+        if (statusElement) {
+            statusElement.remove();
+        }
 
-            const statusOfProcessingElement = document.getElementById("status");
-            if (statusOfProcessingElement) {
-                statusOfProcessingElement.outerHTML = html;
-            } else {
-                displayEl.innerHTML += html;
-            }
+        const resultsListElement = document.getElementById("results-list");
+        const resultsSection = document.getElementById("results-section");
+
+        if (resultsListElement && resultsSection) {
+            results.forEach(student => {
+                const li = document.createElement("li");
+                li.className = "student-item";
+                li.innerHTML = `<strong>${student.name}</strong> has an average of <strong>${student.average}</strong> — Status: <strong>${student.status}</strong>`;
+                resultsListElement.appendChild(li);
+            });
+            resultsSection.classList.remove("hidden");
         }
     })
     .catch(error => {
         console.error(error);
         const displayElement = document.getElementById("display");
         if (displayElement) {
-            displayElement.innerHTML = `<span class="error-message">Error processing records: ${error.message}</span>`;
+            const errSpan = document.createElement("span");
+            errSpan.className = "error-message";
+            errSpan.textContent = `Error processing records: ${error.message}`;
+            displayElement.appendChild(errSpan);
         }
     });
