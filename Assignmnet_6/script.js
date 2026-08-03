@@ -1,142 +1,108 @@
-/**
- * Student Record Processing System
- * 
- * This script manages student records, renders initial data to the DOM,
- * asynchronously processes each student's average marks and pass/fail status
- * with simulated delays, and updates the user interface with the results.
- */
-
-// ==========================================
-// 1. Initial Data Setup
-// ==========================================
-
-// Dataset containing student objects with their respective subject marks
+// Student Data
 const Students = {
     student1: { name: "Alice", marks: { math: 85, science: 90, english: 78 } },
     student2: { name: "Bob", marks: { math: 75, science: 80, english: 88 } },
     student3: { name: "Charlie", marks: { math: 95, science: 89, english: 92 } }
 };
 
-// Log initial dataset to the console
-console.log(" Initial Student Records ");
+// Print initial student records to the browser console
+console.log("Initial Student Records:");
 for (const key in Students) {
-    const { name, marks } = Students[key];
-    console.log(`Name: ${name}, Marks: Math(${marks.math}), Science(${marks.science}), English(${marks.english})`);
+    const student = Students[key];
+    console.log(`Name: ${student.name}, Marks: Math(${student.marks.math}), Science(${student.marks.science}), English(${student.marks.english})`);
 }
-console.log("Processing Student Records Please wait ... ");
+console.log("Processing Student Records Please wait ...");
 
-// ==========================================
-// 2. DOM Rendering - Initial Student Data
-// ==========================================
-
-// Render initial student records to the DOM list element (#initial-list)
+// Display initial student list on the webpage
 const initialListElement = document.getElementById("initial-list");
 if (initialListElement) {
-    for (const student of Object.values(Students)) {
-        const { name, marks } = student;
+    for (const key in Students) {
+        const student = Students[key];
         const li = document.createElement("li");
         li.className = "student-item";
-        li.innerHTML = `<strong>${name}</strong> — Math: ${marks.math}, Science: ${marks.science}, English: ${marks.english}`;
+        li.innerHTML = `<strong>${student.name}</strong> — Math: ${student.marks.math}, Science: ${student.marks.science}, English: ${student.marks.english}`;
         initialListElement.appendChild(li);
     }
 }
 
-// ==========================================
-// 3. Asynchronous Data Processing Functions
-// ==========================================
-
-/**
- * Simulates asynchronous processing of a single student's record.
- * Calculates total marks, average score, and determines pass/fail status.
- * 
- * @param {Object} Student - The student object containing name and subject marks.
- * @returns {Promise<Object>} A promise resolving to an object with calculated student data.
- */
-async function processStudent(Student) {
+// Function to process a single student's marks after a 2-second delay
+async function processStudent(student) {
     return new Promise((resolve) => {
-        const delay = 2000; // Simulated delay of 2 seconds (2000 ms)
-
         setTimeout(() => {
-            // Extract mark values and calculate total & average score
-            const marksArray = Object.values(Student.marks);
-            const total = marksArray.reduce((sum, mark) => sum + mark, 0);
-            const average = (total / marksArray.length).toFixed(2);
-            
-            // Determine pass/fail status based on average threshold (>= 80)
-            const status = average >= 80 ? "Pass" : "Fail";
+            // Calculate total marks and average score
+            const total = student.marks.math + student.marks.science + student.marks.english;
+            const average = (total / 3).toFixed(2);
 
-            // Resolve promise with processed student data object
+            // Determine status: Pass if average is 80 or higher, else Fail
+            let status = "Fail";
+            if (average >= 80) {
+                status = "Pass";
+            }
+
+            // Return processed student data
             resolve({
-                name: Student.name,
+                name: student.name,
                 average: average,
                 status: status
             });
-        }, delay);
+        }, 2000);
     });
 }
 
-/**
- * Sequentially processes all student records stored in the `Students` object.
- * Updates UI status message for each student being processed.
- * 
- * @returns {Promise<Array<Object>>} A promise resolving to an array of processed student results.
- */
+// Function to process all students sequentially
 async function processAllStudents() {
     const results = [];
     const statusElement = document.getElementById("status");
 
-    // Loop sequentially through each student record
+    // Loop through each student
     for (const key in Students) {
         const student = Students[key];
         console.log(`Processing student: ${student.name}...`);
-        
-        // Update progress status text on the webpage UI
+
+        // Update status message on webpage
         if (statusElement) {
             statusElement.textContent = `Processing student: ${student.name}...`;
         }
-        
-        // Wait for the current student's processing promise to resolve before moving to the next
+
+        // Wait for current student processing to complete
         const result = await processStudent(student);
         results.push(result);
     }
+
     return results;
 }
 
-// ==========================================
-// 4. Execution & UI Result Handling
-// ==========================================
-
-// Execute batch processing and handle resolved results or errors
+// Run the script to process all students and show results on the webpage
 processAllStudents()
-    .then(results => {
-        // Log individual student summaries to the console
+    .then((results) => {
+        // Log final results to console
         for (const student of results) {
-            console.log(` ${student.name} has an average of ${student.average} (Status: ${student.status})`);
+            console.log(`${student.name} has an average of ${student.average} (Status: ${student.status})`);
         }
 
-        // Remove the loading/status message element from DOM
+        // Remove loading status message from webpage
         const statusElement = document.getElementById("status");
         if (statusElement) {
             statusElement.remove();
         }
 
-        // Render processed results into the DOM list (#results-list) and unhide the results section
+        // Display results on webpage
         const resultsListElement = document.getElementById("results-list");
         const resultsSection = document.getElementById("results-section");
 
         if (resultsListElement && resultsSection) {
-            results.forEach(student => {
+            for (const student of results) {
                 const li = document.createElement("li");
                 li.className = "student-item";
                 li.innerHTML = `<strong>${student.name}</strong> has an average of <strong>${student.average}</strong> — Status: <strong>${student.status}</strong>`;
                 resultsListElement.appendChild(li);
-            });
-            // Display results container by removing the 'hidden' CSS class
+            }
+
+            // Unhide results section
             resultsSection.classList.remove("hidden");
         }
     })
-    .catch(error => {
-        // Log error and display error message on UI if processing fails
+    .catch((error) => {
         console.error(error);
         const displayElement = document.getElementById("display");
         if (displayElement) {
