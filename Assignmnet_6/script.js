@@ -9,7 +9,6 @@ for (const key in Students) {
     const { name, marks } = Students[key];
     console.log(`Name: ${name}, Marks: Math(${marks.math}), Science(${marks.science}), English(${marks.english})`);
 }
-
 console.log("Processing Student Records Please wait ... ");
 
 // Render initial student records to DOM
