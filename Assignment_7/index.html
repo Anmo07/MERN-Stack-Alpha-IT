@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unique Data Tracker & ID Generator System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Unique Data Tracker & ID Generator System</h1>
+            <p>Managing users with <strong>Sets</strong>, <strong>Maps</strong>, and <strong>Generator Functions</strong></p>
+        </header>
+
+        <!-- Interactive Control Panel -->
+        <div class="card-grid">
+            <!-- Add User Card -->
+            <div class="card">
+                <h2>1. Add User (Set & Generator)</h2>
+                <div class="form-group">
+                    <input type="text" id="userInput" placeholder="Enter user name or email (e.g. Alice)">
+                    <button id="addUserBtn">Add User</button>
+                </div>
+            </div>
+
+            <!-- Update User Data Card -->
+            <div class="card">
+                <h2>2. Update User Data (Map)</h2>
+                <div class="form-group">
+                    <input type="text" id="updateEmailInput" placeholder="User email/name (e.g. Alice)">
+                    <input type="number" id="scoreInput" placeholder="Score (e.g. 90)">
+                    <input type="number" id="levelInput" placeholder="Level (e.g. 3)">
+                    <button id="updateUserBtn">Update Data</button>
+                </div>
+            </div>
+
+            <!-- Extra Features Card -->
+            <div class="card">
+                <h2>3. Search / Remove User</h2>
+                <div class="form-group">
+                    <input type="text" id="searchQueryInput" placeholder="Search by ID or Email">
+                    <div class="button-group">
+                        <button id="searchUserBtn">Search</button>
+                        <button id="removeUserBtn" class="btn-danger">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Terminal Output / Activity Log -->
+        <section class="log-section">
+            <div class="section-header">
+                <h2>Console Output Log</h2>
+                <button id="runDemoBtn" class="btn-secondary">Run Default Demo Output</button>
+            </div>
+            <div id="consoleLog" class="terminal-box"></div>
+        </section>
+
+        <!-- Stored User Data View -->
+        <section class="table-section">
+            <h2>Current User Database (Map & Set View)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID (Generator)</th>
+                            <th>Email / User (Set Key)</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <tr>
+                            <td colspan="5" class="empty-state">No users added yet.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+/* White, Black & Cream Aesthetic Design System */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+    background-color: #f7f4ee; /* Warm light cream background */
+    color: #1a1a1a;           /* Deep black text */
+    line-height: 1.6;
+    padding: 30px 20px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+/* Header Styling */
+header {
+    text-align: center;
+    margin-bottom: 35px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e5dec9; /* Warm cream accent border */
+}
+
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #111111;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+header p {
+    color: #666053;
+    font-size: 1.05rem;
+}
+
+header strong {
+    color: #111111;
+}
+
+/* Card Grid Layout */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: #ffffff;      /* Pure white card */
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid #e5dec9; /* Subtle warm beige border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111111;
+    margin-bottom: 18px;
+    border-bottom: 2px solid #111111; /* Solid black title highlight */
+    padding-bottom: 8px;
+}
+
+/* Form Controls */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+input {
+    background-color: #faf7f2; /* Soft cream input fill */
+    border: 1px solid #dcd3bf;
+    color: #1a1a1a;
+    padding: 11px 15px;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+input::placeholder {
+    color: #948c7e;
+}
+
+input:focus {
+    background-color: #ffffff;
+    border-color: #111111;
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
+}
+
+/* Button Variants */
+button {
+    background-color: #111111; /* Solid Black primary button */
+    color: #f7f4ee;           /* Warm cream text */
+    border: 1px solid #111111;
+    padding: 11px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.btn-secondary {
+    background-color: #efe8da; /* Cream button background */
+    color: #111111;
+    border: 1px solid #d6cbba;
+}
+
+.btn-secondary:hover {
+    background-color: #e5dac6;
+    border-color: #c4b6a1;
+}
+
+.btn-danger {
+    background-color: #2b1717; /* Dark blackish burgundy */
+    color: #f7f4ee;
+    border: 1px solid #2b1717;
+}
+
+.btn-danger:hover {
+    background-color: #4a2222;
+    border-color: #4a2222;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+}
+
+.button-group button {
+    flex: 1;
+}
+
+/* Terminal Log Console */
+.log-section {
+    margin-bottom: 35px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.section-header h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111111;
+}
+
+.terminal-box {
+    background-color: #141412; /* Deep matte black terminal */
+    border: 1px solid #2d2c27;
+    border-radius: 10px;
+    padding: 18px;
+    font-family: "SF Mono", "Fira Code", "Courier New", Courier, monospace;
+    font-size: 0.92rem;
+    min-height: 190px;
+    max-height: 320px;
+    overflow-y: auto;
+    color: #f7f4ee;            /* Cream monospace text */
+    white-space: pre-wrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.log-line {
+    margin-bottom: 7px;
+}
+
+.log-success {
+    color: #a8d59d; /* Warm muted sage green */
+}
+
+.log-warning {
+    color: #ebd090; /* Soft cream gold */
+}
+
+.log-info {
+    color: #a4caf6; /* Soft muted slate blue */
+}
+
+.log-error {
+    color: #f3a3a3; /* Soft muted rose */
+}
+
+/* User Database Table */
+.table-section h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #111111;
+    margin-bottom: 12px;
+}
+
+.table-container {
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5dec9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th, td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f0e9dc;
+}
+
+th {
+    background-color: #f2ebd9; /* Cream header row */
+    color: #332f28;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+td {
+    color: #1a1a1a;
+    font-size: 0.95rem;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+tr:hover td {
+    background-color: #faf7f0; /* Hover highlight on table rows */
+}
+
+.empty-state {
+    text-align: center;
+    color: #8c8273;
+    font-style: italic;
+}
+
+/* Action Delete Button in Table */
+.action-btn-danger {
+    background-color: #2b1717;
+    color: #f7f4ee;
+    padding: 5px 12px;
+    font-size: 0.82rem;
+    border-radius: 6px;
+    border: none;
+}
+
+.action-btn-danger:hover {
+    background-color: #4a2222;
+}
