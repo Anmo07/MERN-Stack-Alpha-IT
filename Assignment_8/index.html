@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h2>User Profile Management System</h2>
+
+    <!-- Live Profile Status Display -->
+    <div class="profile-card">
+        <h3>Current User Profile</h3>
+        <p><strong>ID:</strong> <span id="userId">--</span></p>
+        <p><strong>Name:</strong> <span id="userName">No user loaded</span></p>
+        <p><strong>Age:</strong> <span id="userAge">--</span></p>
+        <p><strong>Role:</strong> <span id="userRole">--</span></p>
+    </div>
+
+    <!-- User Operation Selection -->
+    <div class="operation-card">
+        <h3>Choose Operation</h3>
+        <div class="form-group">
+            <label for="operationSelect">Select HTTP Action to Perform:</label>
+            <select id="operationSelect" onchange="handleOperationChange()">
+                <option value="GET">1. View Profile (GET)</option>
+                <option value="POST">2. Create Profile (POST)</option>
+                <option value="PATCH">4. Update One Field (PATCH)</option>
+                <option value="DELETE">5. Delete Profile (DELETE)</option>
+            </select>
+        </div>
+
+        <!-- 1. GET Form -->
+        <div id="sectionGET">
+            <p>Fetch and view user profile details from backend.</p>
+            <button onclick="fetchUserProfile()">Execute GET</button>
+        </div>
+
+        <!-- 2. POST Form -->
+        <div id="sectionPOST" style="display: none;">
+            <form onsubmit="createUserProfile(event)">
+                <div class="form-group">
+                    <label for="postName">Name:</label>
+                    <input type="text" id="postName" placeholder="Enter name (e.g. Manish)" required>
+                </div>
+                <div class="form-group">
+                    <label for="postAge">Age:</label>
+                    <input type="number" id="postAge" placeholder="Enter age (e.g. 25)" required>
+                </div>
+                <div class="form-group">
+                    <label for="postRole">Role:</label>
+                    <input type="text" id="postRole" placeholder="Enter role (e.g. Developer)" required>
+                </div>
+                <button type="submit">Execute POST</button>
+            </form>
+        </div>
+
+        <!-- 4. PATCH Form -->
+        <div id="sectionPATCH" style="display: none;">
+            <form onsubmit="patchUserProfile(event)">
+                <div class="form-group">
+                    <label for="patchField">Select Field to Update:</label>
+                    <select id="patchField">
+                        <option value="role">Role</option>
+                        <option value="age">Age</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="patchValue">New Value:</label>
+                    <input type="text" id="patchValue" placeholder="Enter updated value" required>
+                </div>
+                <button type="submit">Execute PATCH</button>
+            </form>
+        </div>
+
+        <!-- 5. DELETE Form -->
+        <div id="sectionDELETE" style="display: none;">
+            <p>Permanently delete current user profile.</p>
+            <button onclick="deleteUserProfile()">Execute DELETE</button>
+        </div>
+
+        <!-- Status / Feedback Message -->
+        <p id="statusMessage" class="status-msg"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.profile-card, .operation-card {
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 340px;
+    margin: 15px 0;
+}
+
+.form-group {
+    margin-bottom: 8px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 6px 12px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.status-msg {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #333;
+}
