@@ -55,9 +55,13 @@ export default function Navbar({ activeSection, setActiveSection }) {
     setActiveSection(id);
     setMobileMenuOpen(false);
 
-    const targetEl = document.getElementById(id);
-    if (targetEl) {
-      targetEl.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const targetEl = document.getElementById(id);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth' });
+      }
     }
   };
 
