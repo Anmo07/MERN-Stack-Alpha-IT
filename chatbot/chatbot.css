@@ -1,0 +1,171 @@
+/* ── reset & base ──────────────────────────────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body{
+  font-family:'Inter',sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:linear-gradient(135deg,#0f0c29,#302b63,#24243e);
+}
+
+/* ── wrapper ───────────────────────────────────────── */
+.chatbot-wrapper{
+  width:100%;
+  max-width:460px;
+  padding:16px;
+}
+
+.chatbot-container{
+  display:flex;
+  flex-direction:column;
+  height:88vh;
+  border-radius:20px;
+  overflow:hidden;
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1px solid rgba(255,255,255,0.12);
+  box-shadow:0 8px 32px rgba(0,0,0,0.45);
+}
+
+/* ── header ────────────────────────────────────────── */
+.chatbot-header{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:18px 20px;
+  background:rgba(255,255,255,0.05);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.chatbot-avatar{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#6366f1);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.chatbot-avatar svg{
+  width:22px;height:22px;
+  color:#fff;
+}
+
+.chatbot-title{
+  font-size:1.05rem;font-weight:700;
+  color:#f1f1f1;
+}
+
+.chatbot-status{
+  font-size:.75rem;font-weight:500;
+  color:#34d399;
+}
+
+/* ── messages ──────────────────────────────────────── */
+.chatbot-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:20px 16px;
+  display:flex;flex-direction:column;gap:10px;
+}
+
+.chatbot-messages::-webkit-scrollbar{width:5px}
+.chatbot-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:10px}
+
+/* ── bubbles ───────────────────────────────────────── */
+.chatbot-bubble{
+  max-width:80%;
+  padding:12px 16px;
+  border-radius:18px;
+  font-size:.9rem;line-height:1.45;
+  animation:fadeUp .25s ease;
+}
+
+.chatbot-bubble.bot{
+  align-self:flex-start;
+  background:rgba(255,255,255,0.1);
+  color:#e2e8f0;
+  border-bottom-left-radius:4px;
+}
+
+.chatbot-bubble.user{
+  align-self:flex-end;
+  background:linear-gradient(135deg,#7c3aed,#6366f1);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ── typing indicator ──────────────────────────────── */
+.typing-indicator{display:flex;gap:5px;padding:4px 0}
+.typing-indicator span{
+  width:7px;height:7px;border-radius:50%;
+  background:#94a3b8;
+  animation:bounce .6s infinite alternate;
+}
+.typing-indicator span:nth-child(2){animation-delay:.15s}
+.typing-indicator span:nth-child(3){animation-delay:.3s}
+
+@keyframes bounce{
+  to{opacity:.3;transform:translateY(-4px)}
+}
+
+/* ── input area ────────────────────────────────────── */
+.chatbot-input-area{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 14px;
+  background:rgba(255,255,255,0.05);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.icon-btn{
+  width:38px;height:38px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border:none;border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+.icon-btn:hover{
+  background:rgba(255,255,255,0.16);
+  transform:scale(1.08);
+}
+.icon-btn svg{width:18px;height:18px;color:#a5b4fc}
+
+.chat-input{
+  flex:1;
+  padding:10px 14px;
+  border:none;
+  border-radius:12px;
+  background:rgba(255,255,255,0.08);
+  color:#f1f1f1;
+  font-size:.9rem;
+  font-family:inherit;
+  outline:none;
+  transition:background .2s;
+}
+.chat-input::placeholder{color:#94a3b8}
+.chat-input:focus{background:rgba(255,255,255,0.13)}
+
+.send-btn{
+  width:40px;height:40px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  border:none;border-radius:50%;
+  background:linear-gradient(135deg,#7c3aed,#6366f1);
+  cursor:pointer;
+  transition:transform .15s,box-shadow .2s;
+}
+.send-btn:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 14px rgba(124,58,237,.55);
+}
+.send-btn svg{width:18px;height:18px;color:#fff}
