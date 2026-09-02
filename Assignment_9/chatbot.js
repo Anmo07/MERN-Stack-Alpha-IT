@@ -12,23 +12,23 @@ function addBubble(text, role) {
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
-function showTyping() {
+function showThinking() {
   const div = document.createElement('div');
-  div.className = 'chatbot-bubble bot typing';
-  div.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+  div.className = 'chatbot-bubble bot thinking-bubble';
+  div.innerHTML = `
+    <div class="thinking-status">
+      <span class="thinking-icon">🧠</span>
+      <span class="thinking-text">Thinking</span>
+      <span class="thinking-dots"><span>.</span><span>.</span><span>.</span></span>
+    </div>`;
   chatMessages.appendChild(div);
   chatMessages.scrollTop = chatMessages.scrollHeight;
   return div;
 }
 
-// ── conversation history (OpenAI-style messages) ────
+// ── conversation history ─────────────────────────────
 const history = [
-  { role: 'system', content: `You are a friendly, helpful chatbot assistant.
-RULES:
-- Reply DIRECTLY with your answer. Do NOT show your thinking, reasoning steps, drafts, or internal process.
-- Never output phrases like "Analyze", "Identify Intent", "Formulate Response", "Check Constraints", "Draft", or any meta-commentary.
-- Keep answers short and conversational (1–3 sentences max unless asked for detail).
-- Use a warm, natural tone.` }
+  { role: 'system', content: 'You are a friendly chatbot. Answer directly and concisely.' }
 ];
 
 // ── create a bot bubble and return its <p> for streaming ──
@@ -51,7 +51,9 @@ async function sendMessage() {
   chatInput.value = '';
   history.push({ role: 'user', content: text });
 
-  const loader = showTyping();
+  let thinkingBubble = null;
+  let target = null;
+  let fullReply = '';
 
   try {
     const res = await fetch('/api/chat', {
@@ -60,39 +62,65 @@ async function sendMessage() {
       body: JSON.stringify({ messages: history })
     });
 
-    loader.remove();
-    const target = createBotBubble();      // empty bubble to fill
-    const reader = res.body.getReader();
+    const reader  = res.body.getReader();
     const decoder = new TextDecoder();
-    let fullReply = '';
+    let buf = '';
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
 
-      const chunk = decoder.decode(value, { stream: true });
-      // Parse SSE lines: "data: {...}"
-      const lines = chunk.split('\n');
+      buf += decoder.decode(value, { stream: true });
+      const lines = buf.split('\n');
+      buf = lines.pop();
+
       for (const line of lines) {
         if (!line.startsWith('data: ')) continue;
         const payload = line.slice(6).trim();
-        if (payload === '[DONE]') break;
-        try {
-          const json = JSON.parse(payload);
-          const token = json.choices?.[0]?.delta?.content;
-          if (token) {
-            fullReply += token;
-            target.textContent = fullReply;
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+        if (payload === '[DONE]') continue;
+
+        let json;
+        try { json = JSON.parse(payload); } catch { continue; }
+
+        // ── Thinking phase ──────────────────────────
+        if (json.type === 'thinking') {
+          if (!thinkingBubble) {
+            thinkingBubble = showThinking();
           }
-        } catch { /* skip non-JSON lines */ }
+        }
+
+        // ── Thinking done → show answer bubble ──────
+        if (json.type === 'thinking_done') {
+          if (thinkingBubble) {
+            thinkingBubble.remove();
+            thinkingBubble = null;
+          }
+          target = createBotBubble();
+        }
+
+        // ── Stream answer tokens ────────────────────
+        if (json.type === 'token' && json.text) {
+          if (!target) target = createBotBubble();
+          fullReply += json.text;
+          target.textContent = fullReply;
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // ── Error ───────────────────────────────────
+        if (json.type === 'error') {
+          if (thinkingBubble) thinkingBubble.remove();
+          addBubble(json.text || 'An error occurred.', 'bot');
+        }
       }
     }
 
-    if (!fullReply) target.textContent = 'No response.';
+    if (!fullReply && !target) {
+      if (thinkingBubble) thinkingBubble.remove();
+      addBubble('No response.', 'bot');
+    }
     history.push({ role: 'assistant', content: fullReply || '' });
   } catch {
-    loader.remove();
+    if (thinkingBubble) thinkingBubble.remove();
     addBubble('Could not reach the server.', 'bot');
   }
 }
