@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 // Serve the chatbot frontend
-app.use(express.static(path.join(__dirname, '..', 'chatbot')));
+app.use(express.static(path.join(__dirname, '..', 'Assignment_9')));
 
 // ─── Streaming chat endpoint ────────────────────────────
 app.post('/api/chat', async (req, res) => {
