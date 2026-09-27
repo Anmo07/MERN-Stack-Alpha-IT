@@ -9,7 +9,10 @@ class UserRepository {
     if (checkDbConnection()) {
       return await User.findOne({ email });
     }
-    return memoryUsers.find((u) => u.email.toLowerCase() === email.toLowerCase()) || null;
+    return (
+      memoryUsers.find((u) => u.email.toLowerCase() === email.toLowerCase()) ||
+      null
+    );
   }
 
   async findById(id) {
@@ -33,7 +36,7 @@ class UserRepository {
       email: userData.email,
       password: userData.password,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     };
     memoryUsers.push(newUser);
     return newUser;
@@ -41,11 +44,19 @@ class UserRepository {
 
   async update(id, updateData) {
     if (checkDbConnection()) {
-      return await User.findByIdAndUpdate(id, updateData, { new: true }).select("-password");
+      return await User.findByIdAndUpdate(id, updateData, { new: true }).select(
+        "-password",
+      );
     }
-    const index = memoryUsers.findIndex((u) => u._id.toString() === id.toString());
+    const index = memoryUsers.findIndex(
+      (u) => u._id.toString() === id.toString(),
+    );
     if (index === -1) return null;
-    memoryUsers[index] = { ...memoryUsers[index], ...updateData, updatedAt: new Date() };
+    memoryUsers[index] = {
+      ...memoryUsers[index],
+      ...updateData,
+      updatedAt: new Date(),
+    };
     const { password, ...userWithoutPassword } = memoryUsers[index];
     return userWithoutPassword;
   }
@@ -54,7 +65,9 @@ class UserRepository {
     if (checkDbConnection()) {
       return await User.findByIdAndDelete(id);
     }
-    const index = memoryUsers.findIndex((u) => u._id.toString() === id.toString());
+    const index = memoryUsers.findIndex(
+      (u) => u._id.toString() === id.toString(),
+    );
     if (index === -1) return null;
     const deleted = memoryUsers.splice(index, 1);
     return deleted[0];
