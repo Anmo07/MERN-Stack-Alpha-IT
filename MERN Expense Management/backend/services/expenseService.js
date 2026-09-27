@@ -163,12 +163,16 @@ class ExpenseService {
   }
 
   async getSummary(userId) {
+    const userTarget = mongoose.Types.ObjectId.isValid(userId)
+      ? new mongoose.Types.ObjectId(userId)
+      : userId;
+
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
     const totalStats = await expenseRepository.aggregate([
-      { $match: { user: userId } },
+      { $match: { user: userTarget } },
       {
         $group: {
           _id: null,
@@ -181,7 +185,7 @@ class ExpenseService {
     const monthStats = await expenseRepository.aggregate([
       {
         $match: {
-          user: userId,
+          user: userTarget,
           date: { $gte: startOfMonth, $lte: endOfMonth }
         }
       },
@@ -195,7 +199,7 @@ class ExpenseService {
     ]);
 
     const categoryStats = await expenseRepository.aggregate([
-      { $match: { user: userId } },
+      { $match: { user: userTarget } },
       {
         $group: {
           _id: "$category",
@@ -207,7 +211,7 @@ class ExpenseService {
     ]);
 
     const paymentMethodStats = await expenseRepository.aggregate([
-      { $match: { user: userId } },
+      { $match: { user: userTarget } },
       {
         $group: {
           _id: "$paymentMethod",
