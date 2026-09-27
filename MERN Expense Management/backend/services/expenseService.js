@@ -74,7 +74,7 @@ class ExpenseService {
   }
 
   async getExpenses(userId, query = {}) {
-    const filter = { user: new mongoose.Types.ObjectId(userId) };
+    const filter = { user: userId };
 
     if (query.search && query.search.trim()) {
       const searchRegex = new RegExp(query.search.trim(), "i");
@@ -119,12 +119,6 @@ class ExpenseService {
   }
 
   async getExpenseById(id, userId) {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      const error = new Error("Invalid expense ID");
-      error.statusCode = 400;
-      throw error;
-    }
-
     const expense = await expenseRepository.findById(id, userId);
     if (!expense) {
       const error = new Error("Expense not found");
@@ -136,12 +130,6 @@ class ExpenseService {
   }
 
   async updateExpense(id, userId, data) {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      const error = new Error("Invalid expense ID");
-      error.statusCode = 400;
-      throw error;
-    }
-
     this.validateExpenseData(data);
 
     const updateData = {
@@ -164,12 +152,6 @@ class ExpenseService {
   }
 
   async deleteExpense(id, userId) {
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-      const error = new Error("Invalid expense ID");
-      error.statusCode = 400;
-      throw error;
-    }
-
     const deletedExpense = await expenseRepository.delete(id, userId);
     if (!deletedExpense) {
       const error = new Error("Expense not found or unauthorized");
@@ -181,14 +163,12 @@ class ExpenseService {
   }
 
   async getSummary(userId) {
-    const userObjectId = new mongoose.Types.ObjectId(userId);
-
     const now = new Date();
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
     const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
 
     const totalStats = await expenseRepository.aggregate([
-      { $match: { user: userObjectId } },
+      { $match: { user: userId } },
       {
         $group: {
           _id: null,
@@ -201,7 +181,7 @@ class ExpenseService {
     const monthStats = await expenseRepository.aggregate([
       {
         $match: {
-          user: userObjectId,
+          user: userId,
           date: { $gte: startOfMonth, $lte: endOfMonth }
         }
       },
@@ -215,7 +195,7 @@ class ExpenseService {
     ]);
 
     const categoryStats = await expenseRepository.aggregate([
-      { $match: { user: userObjectId } },
+      { $match: { user: userId } },
       {
         $group: {
           _id: "$category",
@@ -227,7 +207,7 @@ class ExpenseService {
     ]);
 
     const paymentMethodStats = await expenseRepository.aggregate([
-      { $match: { user: userObjectId } },
+      { $match: { user: userId } },
       {
         $group: {
           _id: "$paymentMethod",
@@ -239,7 +219,7 @@ class ExpenseService {
     ]);
 
     const recentExpenses = await expenseRepository.findAll(
-      { user: userObjectId },
+      { user: userId },
       { date: -1, createdAt: -1 }
     );
 

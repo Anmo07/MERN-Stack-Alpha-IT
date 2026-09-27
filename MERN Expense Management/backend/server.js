@@ -10,10 +10,10 @@ import { notFoundHandler, errorHandler } from "./middlewares/errorMiddleware.js"
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-connectDB();
+await connectDB();
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: true,
   credentials: true
 }));
 
