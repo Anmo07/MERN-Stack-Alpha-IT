@@ -7,7 +7,7 @@ import {
   Edit2,
   Trash2,
   Receipt,
-  RotateCcw
+  RotateCcw,
 } from "lucide-react";
 import { expenseAPI } from "../services/api";
 
@@ -20,7 +20,7 @@ const CATEGORIES = [
   "Entertainment",
   "Health",
   "Education",
-  "Other"
+  "Other",
 ];
 
 const PAYMENT_METHODS = [
@@ -30,7 +30,7 @@ const PAYMENT_METHODS = [
   "Debit Card",
   "UPI",
   "Net Banking",
-  "Other"
+  "Other",
 ];
 
 const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
@@ -42,7 +42,7 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
     paymentMethod: "All",
     startDate: "",
     endDate: "",
-    sortBy: "date-desc"
+    sortBy: "date-desc",
   });
 
   const fetchExpenses = async () => {
@@ -59,7 +59,13 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
 
   useEffect(() => {
     fetchExpenses();
-  }, [filters.category, filters.paymentMethod, filters.startDate, filters.endDate, filters.sortBy]);
+  }, [
+    filters.category,
+    filters.paymentMethod,
+    filters.startDate,
+    filters.endDate,
+    filters.sortBy,
+  ]);
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -78,35 +84,51 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
       paymentMethod: "All",
       startDate: "",
       endDate: "",
-      sortBy: "date-desc"
+      sortBy: "date-desc",
     });
   };
 
   const exportCSV = () => {
     if (expenses.length === 0) return;
 
-    const headers = ["Title", "Amount", "Category", "Date", "Payment Method", "Description"];
+    const headers = [
+      "Title",
+      "Amount",
+      "Category",
+      "Date",
+      "Payment Method",
+      "Description",
+    ];
     const rows = expenses.map((exp) => [
       `"${exp.title.replace(/"/g, '""')}"`,
       Number(exp.amount).toFixed(2),
       `"${exp.category}"`,
       `"${new Date(exp.date).toISOString().split("T")[0]}"`,
       `"${exp.paymentMethod}"`,
-      `"${(exp.description || "").replace(/"/g, '""')}"`
+      `"${(exp.description || "").replace(/"/g, '""')}"`,
     ]);
 
-    const csvContent = [headers.join(","), ...rows.map((row) => row.join(","))].join("\n");
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => row.join(",")),
+    ].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.setAttribute("href", url);
-    link.setAttribute("download", `expenses_${new Date().toISOString().split("T")[0]}.csv`);
+    link.setAttribute(
+      "download",
+      `expenses_${new Date().toISOString().split("T")[0]}.csv`,
+    );
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
-  const totalFilteredAmount = expenses.reduce((sum, item) => sum + Number(item.amount), 0);
+  const totalFilteredAmount = expenses.reduce(
+    (sum, item) => sum + Number(item.amount),
+    0,
+  );
 
   return (
     <div>
@@ -114,7 +136,9 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
         <div className="page-title">
           <h1>Expenses Management</h1>
           <p>
-            Showing {expenses.length} transaction{expenses.length !== 1 ? "s" : ""} · Total: ${totalFilteredAmount.toFixed(2)}
+            Showing {expenses.length} transaction
+            {expenses.length !== 1 ? "s" : ""} · Total: ₹
+            {totalFilteredAmount.toFixed(2)}
           </p>
         </div>
         <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
@@ -135,7 +159,10 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
       </div>
 
       <div className="filter-bar">
-        <form onSubmit={handleSearchSubmit} style={{ display: "flex", gap: "0.5rem" }}>
+        <form
+          onSubmit={handleSearchSubmit}
+          style={{ display: "flex", gap: "0.5rem" }}
+        >
           <div style={{ position: "relative", flex: 1 }}>
             <Search
               size={18}
@@ -144,7 +171,7 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
                 left: "0.75rem",
                 top: "50%",
                 transform: "translateY(-50%)",
-                color: "var(--text-light)"
+                color: "var(--text-light)",
               }}
             />
             <input
@@ -164,7 +191,15 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
 
         <div className="filter-grid">
           <div>
-            <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", display: "block", marginBottom: "0.25rem" }}>
+            <label
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                color: "var(--text-muted)",
+                display: "block",
+                marginBottom: "0.25rem",
+              }}
+            >
               CATEGORY
             </label>
             <select
@@ -182,7 +217,15 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
           </div>
 
           <div>
-            <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", display: "block", marginBottom: "0.25rem" }}>
+            <label
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                color: "var(--text-muted)",
+                display: "block",
+                marginBottom: "0.25rem",
+              }}
+            >
               PAYMENT METHOD
             </label>
             <select
@@ -200,7 +243,15 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
           </div>
 
           <div>
-            <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", display: "block", marginBottom: "0.25rem" }}>
+            <label
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                color: "var(--text-muted)",
+                display: "block",
+                marginBottom: "0.25rem",
+              }}
+            >
               FROM DATE
             </label>
             <input
@@ -213,7 +264,15 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
           </div>
 
           <div>
-            <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", display: "block", marginBottom: "0.25rem" }}>
+            <label
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                color: "var(--text-muted)",
+                display: "block",
+                marginBottom: "0.25rem",
+              }}
+            >
               TO DATE
             </label>
             <input
@@ -226,7 +285,15 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
           </div>
 
           <div>
-            <label style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", display: "block", marginBottom: "0.25rem" }}>
+            <label
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: 700,
+                color: "var(--text-muted)",
+                display: "block",
+                marginBottom: "0.25rem",
+              }}
+            >
               SORT BY
             </label>
             <select
@@ -244,7 +311,15 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
         </div>
 
         <div className="filter-actions">
-          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", color: "var(--text-muted)", fontSize: "0.85rem" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "0.4rem",
+              color: "var(--text-muted)",
+              fontSize: "0.85rem",
+            }}
+          >
             <Filter size={16} />
             <span>Refine results using filters above</span>
           </div>
@@ -268,11 +343,19 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
           </div>
           <h3>No expenses found</h3>
           <p>
-            {filters.search || filters.category !== "All" || filters.paymentMethod !== "All" || filters.startDate || filters.endDate
+            {filters.search ||
+            filters.category !== "All" ||
+            filters.paymentMethod !== "All" ||
+            filters.startDate ||
+            filters.endDate
               ? "No expenses matched your filter criteria. Try adjusting or resetting filters."
               : "You haven't recorded any expenses yet."}
           </p>
-          {filters.search || filters.category !== "All" || filters.paymentMethod !== "All" || filters.startDate || filters.endDate ? (
+          {filters.search ||
+          filters.category !== "All" ||
+          filters.paymentMethod !== "All" ||
+          filters.startDate ||
+          filters.endDate ? (
             <button className="btn btn-secondary btn-sm" onClick={resetFilters}>
               Reset Filters
             </button>
@@ -294,14 +377,18 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
                   <th>Date</th>
                   <th>Payment Method</th>
                   <th style={{ textAlign: "right" }}>Amount</th>
-                  <th style={{ textAlign: "center", width: "100px" }}>Actions</th>
+                  <th style={{ textAlign: "center", width: "100px" }}>
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {expenses.map((expense) => (
                   <tr key={expense._id}>
                     <td>
-                      <div style={{ fontWeight: 600, color: "var(--text-main)" }}>
+                      <div
+                        style={{ fontWeight: 600, color: "var(--text-main)" }}
+                      >
                         {expense.title}
                       </div>
                       {expense.description && (
@@ -313,7 +400,7 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
                             maxWidth: "320px",
                             whiteSpace: "nowrap",
                             overflow: "hidden",
-                            textOverflow: "ellipsis"
+                            textOverflow: "ellipsis",
                           }}
                         >
                           {expense.description}
@@ -321,7 +408,9 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
                       )}
                     </td>
                     <td>
-                      <span className={`badge badge-${expense.category.toLowerCase()}`}>
+                      <span
+                        className={`badge badge-${expense.category.toLowerCase()}`}
+                      >
                         {expense.category}
                       </span>
                     </td>
@@ -329,7 +418,7 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
                       {new Date(expense.date).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
-                        year: "numeric"
+                        year: "numeric",
                       })}
                     </td>
                     <td>
@@ -341,7 +430,10 @@ const Expenses = ({ onAddExpense, onEditExpense, onDeleteExpenseRequest }) => {
                       ${Number(expense.amount).toFixed(2)}
                     </td>
                     <td>
-                      <div className="action-buttons" style={{ justifyContent: "center" }}>
+                      <div
+                        className="action-buttons"
+                        style={{ justifyContent: "center" }}
+                      >
                         <button
                           className="icon-action-btn edit"
                           onClick={() => onEditExpense(expense)}

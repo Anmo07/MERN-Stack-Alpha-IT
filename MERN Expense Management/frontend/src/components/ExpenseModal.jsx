@@ -9,7 +9,7 @@ const CATEGORIES = [
   "Entertainment",
   "Health",
   "Education",
-  "Other"
+  "Other",
 ];
 
 const PAYMENT_METHODS = [
@@ -18,17 +18,23 @@ const PAYMENT_METHODS = [
   "Debit Card",
   "UPI",
   "Net Banking",
-  "Other"
+  "Other",
 ];
 
-const ExpenseModal = ({ isOpen, onClose, onSave, expenseToEdit, isSubmitting }) => {
+const ExpenseModal = ({
+  isOpen,
+  onClose,
+  onSave,
+  expenseToEdit,
+  isSubmitting,
+}) => {
   const [formData, setFormData] = useState({
     title: "",
     amount: "",
     category: "Food",
     date: new Date().toISOString().split("T")[0],
     paymentMethod: "Cash",
-    description: ""
+    description: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -39,9 +45,11 @@ const ExpenseModal = ({ isOpen, onClose, onSave, expenseToEdit, isSubmitting }) 
         title: expenseToEdit.title || "",
         amount: expenseToEdit.amount || "",
         category: expenseToEdit.category || "Food",
-        date: expenseToEdit.date ? expenseToEdit.date.split("T")[0] : new Date().toISOString().split("T")[0],
+        date: expenseToEdit.date
+          ? expenseToEdit.date.split("T")[0]
+          : new Date().toISOString().split("T")[0],
         paymentMethod: expenseToEdit.paymentMethod || "Cash",
-        description: expenseToEdit.description || ""
+        description: expenseToEdit.description || "",
       });
     } else {
       setFormData({
@@ -50,7 +58,7 @@ const ExpenseModal = ({ isOpen, onClose, onSave, expenseToEdit, isSubmitting }) 
         category: "Food",
         date: new Date().toISOString().split("T")[0],
         paymentMethod: "Cash",
-        description: ""
+        description: "",
       });
     }
     setErrors({});
@@ -123,23 +131,27 @@ const ExpenseModal = ({ isOpen, onClose, onSave, expenseToEdit, isSubmitting }) 
                 value={formData.title}
                 onChange={handleChange}
               />
-              {errors.title && <span className="error-text">{errors.title}</span>}
+              {errors.title && (
+                <span className="error-text">{errors.title}</span>
+              )}
             </div>
 
             <div className="form-group">
-              <label htmlFor="amount">Amount ($) *</label>
+              <label htmlFor="amount">Amount (₹) *</label>
               <input
                 id="amount"
                 name="amount"
                 type="number"
-                step="0.01"
-                min="0.01"
-                placeholder="0.00"
+                step="1"
+                min="1"
+                placeholder="Enter amount"
                 className={`form-input ${errors.amount ? "input-error" : ""}`}
                 value={formData.amount}
                 onChange={handleChange}
               />
-              {errors.amount && <span className="error-text">{errors.amount}</span>}
+              {errors.amount && (
+                <span className="error-text">{errors.amount}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -157,7 +169,9 @@ const ExpenseModal = ({ isOpen, onClose, onSave, expenseToEdit, isSubmitting }) 
                   </option>
                 ))}
               </select>
-              {errors.category && <span className="error-text">{errors.category}</span>}
+              {errors.category && (
+                <span className="error-text">{errors.category}</span>
+              )}
             </div>
 
             <div className="form-group">

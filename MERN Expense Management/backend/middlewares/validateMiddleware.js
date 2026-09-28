@@ -15,8 +15,7 @@ export const validateRegister = (req, res, next) => {
     });
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email.trim())) {
+  if (!email.includes("@") || !email.includes(".")) {
     return res.status(400).json({
       success: false,
       message: "Invalid email format"

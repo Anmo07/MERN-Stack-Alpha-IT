@@ -16,7 +16,7 @@ const expenseSchema = new mongoose.Schema(
     amount: {
       type: Number,
       required: true,
-      min: 0.01
+      min: 1
     },
     category: {
       type: String,

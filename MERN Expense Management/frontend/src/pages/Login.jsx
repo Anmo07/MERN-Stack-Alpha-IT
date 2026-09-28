@@ -13,11 +13,8 @@ const Login = ({ onSwitchToRegister }) => {
     const newErrors = {};
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email.trim())) {
-        newErrors.email = "Enter a valid email address";
-      }
+    } else if (!formData.email.includes("@") || !formData.email.includes(".")) {
+      newErrors.email = "Enter a valid email address";
     }
 
     if (!formData.password) {

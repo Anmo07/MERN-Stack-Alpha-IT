@@ -6,17 +6,17 @@ const expenseSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
-      index: true
+      index: true,
     },
     title: {
       type: String,
       required: true,
-      trim: true
+      trim: true,
     },
     amount: {
       type: Number,
       required: true,
-      min: 0.01
+      min: 1,
     },
     category: {
       type: String,
@@ -29,12 +29,12 @@ const expenseSchema = new mongoose.Schema(
         "Entertainment",
         "Health",
         "Education",
-        "Other"
-      ]
+        "Other",
+      ],
     },
     date: {
       type: Date,
-      required: true
+      required: true,
     },
     paymentMethod: {
       type: String,
@@ -45,20 +45,21 @@ const expenseSchema = new mongoose.Schema(
         "Debit Card",
         "UPI",
         "Net Banking",
-        "Other"
-      ]
+        "Other",
+      ],
     },
     description: {
       type: String,
       trim: true,
-      default: ""
-    }
+      default: "",
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
-const Expense = mongoose.models.Expense || mongoose.model("Expense", expenseSchema);
+const Expense =
+  mongoose.models.Expense || mongoose.model("Expense", expenseSchema);
 
 export default Expense;

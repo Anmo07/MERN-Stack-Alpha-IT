@@ -1,4 +1,4 @@
-import Expense from "./expenseModel.js";
 import User from "./userModel.js";
+import Expense from "./expenseModel.js";
 
-export { Expense, User };
+export { User, Expense };
