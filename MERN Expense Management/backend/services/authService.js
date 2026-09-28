@@ -18,8 +18,7 @@ class AuthService {
       throw error;
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!email.includes("@") || !email.includes(".")) {
       const error = new Error("Invalid email format");
       error.statusCode = 400;
       throw error;
